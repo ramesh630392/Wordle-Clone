@@ -75,6 +75,7 @@ const Home = () => {
     setChances(6);
     setInput('');
     setErr('');
+    setCount(0);
     setInitialWord([{ id: 0, randomWord:"", guessedWord: ['', '', '', '', '']},
         { id: 1, randomWord:"", guessedWord: ['', '', '', '', '']},
         { id: 2, randomWord:"", guessedWord: ['', '', '', '', '']},
