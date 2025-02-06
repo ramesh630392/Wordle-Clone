@@ -14,12 +14,12 @@ const Home = () => {
   const [err, setErr] = useState('');
   const [count, setCount] = useState(0);
   const [initialWord, setInitialWord] = useState([{ id: 0, randomWord:"", guessedWord: ['', '', '', '', '']},
-    { id: 1, randomWord:"     ", guessedWord: ['', '', '', '', '']},
-    { id: 2, randomWord:"     ", guessedWord: ['', '', '', '', '']},
-    { id: 3, randomWord:"     ", guessedWord: ['', '', '', '', '']},
-    { id: 4, randomWord:"     ", guessedWord: ['', '', '', '', '']},
-    { id: 5, randomWord:"     ", guessedWord: ['', '', '', '', '']}]);
-  console.log(initialWord);
+    { id: 1, randomWord:"", guessedWord: ['', '', '', '', '']},
+    { id: 2, randomWord:"", guessedWord: ['', '', '', '', '']},
+    { id: 3, randomWord:"", guessedWord: ['', '', '', '', '']},
+    { id: 4, randomWord:"", guessedWord: ['', '', '', '', '']},
+    { id: 5, randomWord:"", guessedWord: ['', '', '', '', '']}]);
+  //console.log(initialWord);
 
   //This function submits guessed word from input
   const onSubmitWord = () =>{
@@ -46,10 +46,8 @@ const Home = () => {
             eachWord.id === count ? {...eachWord, randomWord: newWord, guessedWord: guessedWord} : {...eachWord}
         ));
         
-        
-        
         setCount(count+1);
-        console.log(initialWord);
+        //console.log(initialWord);
         
         setWord(getRandomWord());
         if (chances === 1){
@@ -78,11 +76,11 @@ const Home = () => {
     setInput('');
     setErr('');
     setInitialWord([{ id: 0, randomWord:"", guessedWord: ['', '', '', '', '']},
-        { id: 1, randomWord:"     ", guessedWord: ['', '', '', '', '']},
-        { id: 2, randomWord:"     ", guessedWord: ['', '', '', '', '']},
-        { id: 3, randomWord:"     ", guessedWord: ['', '', '', '', '']},
-        { id: 4, randomWord:"     ", guessedWord: ['', '', '', '', '']},
-        { id: 5, randomWord:"     ", guessedWord: ['', '', '', '', '']}]);
+        { id: 1, randomWord:"", guessedWord: ['', '', '', '', '']},
+        { id: 2, randomWord:"", guessedWord: ['', '', '', '', '']},
+        { id: 3, randomWord:"", guessedWord: ['', '', '', '', '']},
+        { id: 4, randomWord:"", guessedWord: ['', '', '', '', '']},
+        { id: 5, randomWord:"", guessedWord: ['', '', '', '', '']}]);
   };
    
   return(
@@ -106,7 +104,7 @@ const Home = () => {
             {eachWord.guessedWord.map((eachLetter, j)=>(<div key={j} className={getColor(eachWord.randomWord, eachLetter, j)} >
                 {eachLetter}
             </div>))}
-            <div key={eachWord.id} className={getColor()} >{eachWord.randomWord}</div>
+            <div key={eachWord.id} className={eachWord.randomWord === '' ? "random-word-empty":"random-word-not-empty"} >{eachWord.randomWord}</div>
         </div>
         ))}
         </div>
