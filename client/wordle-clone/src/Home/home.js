@@ -12,8 +12,14 @@ const Home = () => {
   const [chances, setChances] = useState(6);
   const [input, setInput] = useState('');
   const [err, setErr] = useState('');
-
-  
+  const [count, setCount] = useState(0);
+  const [initialWord, setInitialWord] = useState([{ id: 0, randomWord:"", guessedWord: ['', '', '', '', '']},
+    { id: 1, randomWord:"     ", guessedWord: ['', '', '', '', '']},
+    { id: 2, randomWord:"     ", guessedWord: ['', '', '', '', '']},
+    { id: 3, randomWord:"     ", guessedWord: ['', '', '', '', '']},
+    { id: 4, randomWord:"     ", guessedWord: ['', '', '', '', '']},
+    { id: 5, randomWord:"     ", guessedWord: ['', '', '', '', '']}]);
+  console.log(initialWord);
 
   //This function submits guessed word from input
   const onSubmitWord = () =>{
@@ -33,21 +39,31 @@ const Home = () => {
         setErr("");
         setChances(chances-1);
         setInput('');
-        const guessedWord = input.toUpperCase();
-        const newWord = word.toLocaleUpperCase();
-        const newWordle = {word: newWord, input: guessedWord};
-        setGuesses([...guesses, newWordle]);
+        const guessedWord = input.toUpperCase().split('');
+        const newWord = word.toUpperCase();
+
+        setInitialWord(initialWord.map(eachWord =>
+            eachWord.id === count ? {...eachWord, randomWord: newWord, guessedWord: guessedWord} : {...eachWord}
+        ));
+        
+        
+        
+        setCount(count+1);
+        console.log(initialWord);
+        
         setWord(getRandomWord());
-        if (chances === 0){
+        if (chances === 1){
             setMessage("Chances Completed");
-        }
+        };
     };
   };
   
   //It generates color for each grid item based on their match
-  const getColor = (eachWord, eachLetter, i)=>{
-    if (eachWord.word[i] === eachLetter) return "correct";
-    if (eachWord.word.includes(eachLetter)) return "includes";
+  const getColor = (randomWord, eachLetter, i)=>{
+    if (!randomWord || !eachLetter ) return 'not-includes'
+    //return 'correct'
+    if (randomWord[i] === eachLetter) return "correct";
+    if (randomWord.includes(eachLetter)) return "includes";
 
     return "not-includes";
   };
@@ -61,6 +77,12 @@ const Home = () => {
     setChances(6);
     setInput('');
     setErr('');
+    setInitialWord([{ id: 0, randomWord:"", guessedWord: ['', '', '', '', '']},
+        { id: 1, randomWord:"     ", guessedWord: ['', '', '', '', '']},
+        { id: 2, randomWord:"     ", guessedWord: ['', '', '', '', '']},
+        { id: 3, randomWord:"     ", guessedWord: ['', '', '', '', '']},
+        { id: 4, randomWord:"     ", guessedWord: ['', '', '', '', '']},
+        { id: 5, randomWord:"     ", guessedWord: ['', '', '', '', '']}]);
   };
    
   return(
@@ -68,22 +90,23 @@ const Home = () => {
         <nav>
             <h1 className="nav-heading" >Wordle-Clone</h1>
             <div className="chances-container" title="chances" >
-                <h1>{chances>0?"❤️":"🖤"}</h1>
-                <h1>{chances>1?"❤️":"🖤"}</h1>
-                <h1>{chances>2?"❤️":"🖤"}</h1>
-                <h1>{chances>3?"❤️":"🖤"}</h1>
-                <h1>{chances>4?"❤️":"🖤"}</h1>
-                <h1>{chances>5?"❤️":"🖤"}</h1>
+                <h1 className="heart-symbol">{chances>0?"❤️":"🖤"}</h1>
+                <h1 className="heart-symbol">{chances>1?"❤️":"🖤"}</h1>
+                <h1 className="heart-symbol">{chances>2?"❤️":"🖤"}</h1>
+                <h1 className="heart-symbol">{chances>3?"❤️":"🖤"}</h1>
+                <h1 className="heart-symbol">{chances>4?"❤️":"🖤"}</h1>
+                <h1 className="heart-symbol">{chances>5?"❤️":"🖤"}</h1>
             </div>
         </nav>
         
         <div className="game-container">
         <div className="grid-wrap" >
-        {guesses.map((eachWord, index)=>(
+        {initialWord.map((eachWord, index)=>(
         <div className="grid-container" key={index} >
-            {eachWord.input.split("").map((eachLetter, i)=>(
-                <div className= {getColor(eachWord, eachLetter, i)}  key={i} >{eachLetter}</div>
-            ))}
+            {eachWord.guessedWord.map((eachLetter, j)=>(<div key={j} className={getColor(eachWord.randomWord, eachLetter, j)} >
+                {eachLetter}
+            </div>))}
+            <div key={eachWord.id} className={getColor()} >{eachWord.randomWord}</div>
         </div>
         ))}
         </div>
