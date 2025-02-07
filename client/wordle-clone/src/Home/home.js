@@ -3,6 +3,20 @@ import "./home.css";
 
 const WORD_LIST = ["apple", "chair", "house", "water", "bread", "sugar", "light", "music", "smile", "jolly", "table"];
 const getRandomWord = () => WORD_LIST[Math.floor(Math.random() * WORD_LIST.length)];
+const lifes = [0, 1, 2, 3, 4, 5];
+const wordsList = () =>{
+    const list = [];
+    let count = 0;
+    while (count < 6){
+        list.push({id: count, randomWord:"", guessedWord: ['', '', '', '', '']});
+        count++;
+    }
+    //console.log(list);
+    return list;
+};
+wordsList();
+
+
 
 const Home = () => {
   const [word, setWord] = useState(getRandomWord()); // Random 5-letter word
@@ -13,12 +27,7 @@ const Home = () => {
   const [input, setInput] = useState('');
   const [err, setErr] = useState('');
   const [count, setCount] = useState(0);
-  const [initialWord, setInitialWord] = useState([{ id: 0, randomWord:"", guessedWord: ['', '', '', '', '']},
-    { id: 1, randomWord:"", guessedWord: ['', '', '', '', '']},
-    { id: 2, randomWord:"", guessedWord: ['', '', '', '', '']},
-    { id: 3, randomWord:"", guessedWord: ['', '', '', '', '']},
-    { id: 4, randomWord:"", guessedWord: ['', '', '', '', '']},
-    { id: 5, randomWord:"", guessedWord: ['', '', '', '', '']}]);
+  const [initialWord, setInitialWord] = useState(wordsList());
   //console.log(initialWord);
 
   //This function submits guessed word from input
@@ -76,12 +85,7 @@ const Home = () => {
     setInput('');
     setErr('');
     setCount(0);
-    setInitialWord([{ id: 0, randomWord:"", guessedWord: ['', '', '', '', '']},
-        { id: 1, randomWord:"", guessedWord: ['', '', '', '', '']},
-        { id: 2, randomWord:"", guessedWord: ['', '', '', '', '']},
-        { id: 3, randomWord:"", guessedWord: ['', '', '', '', '']},
-        { id: 4, randomWord:"", guessedWord: ['', '', '', '', '']},
-        { id: 5, randomWord:"", guessedWord: ['', '', '', '', '']}]);
+    setInitialWord(wordsList());
   };
    
   return(
@@ -89,12 +93,7 @@ const Home = () => {
         <nav>
             <h1 className="nav-heading" >Wordle-Clone</h1>
             <div className="chances-container" title="chances" >
-                <h1 className="heart-symbol">{chances>0?"❤️":"🖤"}</h1>
-                <h1 className="heart-symbol">{chances>1?"❤️":"🖤"}</h1>
-                <h1 className="heart-symbol">{chances>2?"❤️":"🖤"}</h1>
-                <h1 className="heart-symbol">{chances>3?"❤️":"🖤"}</h1>
-                <h1 className="heart-symbol">{chances>4?"❤️":"🖤"}</h1>
-                <h1 className="heart-symbol">{chances>5?"❤️":"🖤"}</h1>
+                {lifes.map(eachLife =>(<h1 className="heart-symbol" key={eachLife} >{chances>eachLife?"❤️":"🖤"}</h1>))}
             </div>
         </nav>
         
