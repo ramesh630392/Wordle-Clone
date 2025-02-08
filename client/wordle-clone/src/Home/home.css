@@ -89,6 +89,16 @@ body{
         font-weight: bold;
         border-radius: 8px;
     }
+    .not-includes2 {
+        background-color: #575e63;
+        color: white;
+        text-align: center;
+        padding: 20px;
+        font-size: 15px;
+        font-weight: bold;
+        border-radius: 8px;
+        color: transparent;
+    }
     input{
         margin-top: 20px;
         height: 20px;
@@ -255,6 +265,17 @@ body{
         font-size: 12px;
         font-weight: bold;
         border-radius: 8px;
+    }
+
+    .not-includes2 {
+        background-color: #575e63;
+        color: white;
+        text-align: center;
+        padding: 12px;
+        font-size: 12px;
+        font-weight: bold;
+        border-radius: 8px;
+        color: transparent;
     }
     input{
         margin-top: 20px;

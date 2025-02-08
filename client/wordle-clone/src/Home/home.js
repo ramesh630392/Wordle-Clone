@@ -8,7 +8,7 @@ const wordsList = () =>{
     const list = [];
     let count = 0;
     while (count < 6){
-        list.push({id: count, randomWord:"", guessedWord: ['', '', '', '', '']});
+        list.push({id: count, randomWord:"", guessedWord: ['.', '.', '.', '.', '.']});
         count++;
     }
     //console.log(list);
@@ -67,11 +67,10 @@ const Home = () => {
   
   //It generates color for each grid item based on their match
   const getColor = (randomWord, eachLetter, i)=>{
-    if (!randomWord || !eachLetter ) return 'not-includes'
-    //return 'correct'
+    if (eachLetter===".") return "not-includes2";
+    if (!randomWord || !eachLetter ) return 'not-includes';
     if (randomWord[i] === eachLetter) return "correct";
     if (randomWord.includes(eachLetter)) return "includes";
-
     return "not-includes";
   };
   
